@@ -5,6 +5,32 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Animation</title>
+    <link rel="stylesheet" href="./node_modules/tailwindcss/tailwind.css" />
   </head>
-  <body></body>
+
+  <body class="min-h-screen bg-neutral-100">
+    <div class="observable"></div>
+    <div class="observable"></div>
+    <div class="observable"></div>
+    <div class="observable"></div>
+    <div class="observable"></div>
+
+    <script>
+      window.onload = () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              entry.target.style.opacity = entry.intersectionRatio;
+            });
+          },
+          {
+            threshold: Array.from(Array(10).keys()).map((_, i) => i / 10),
+          }
+        );
+        document
+          .querySelectorAll(".observable")
+          .forEach((entry) => observer.observe(entry));
+      };
+    </script>
+  </body>
 </html>
